@@ -1,0 +1,41 @@
+# --------------------------------------------------------------
+#  docker-compose.yml – Run Jupyter (Lab) in Docker
+# --------------------------------------------------------------
+version: "3.3"   # any 3.x version works
+
+services:
+  jupyter:
+    build: .
+    container_name: jupyter_note
+    # Use the Dockerfile in the same directory
+    # (alternatively, you could point to a remote image:
+    image: anpandu/jupyter-note:1.2.0
+
+    # Map the notebook port to the host
+    ports:
+      - "8888:8888"
+
+    # Mount a local folder (./notebooks) into the container
+    # All files you edit will be persisted on your host.
+    volumes:
+      - ./notebooks:/home/momod/work
+
+    # Optional: set a password instead of a token
+    # (the password is hashed; you can generate it with
+    #  `python -c "from notebook.auth import passwd; print(passwd())"` )
+    environment:
+      # JUPYTER_TOKEN='' disables the token (already set in Dockerfile)
+      # JUPYTER_PASSWORD='sha1:yourhashedpassword'  # uncomment if you want a password
+      # Example: JUPYTER_PASSWORD='sha1:abcd1234...'
+      # You can also set the default notebook directory:
+      - JUPYTER_WORK_DIR=/home/momod/work
+
+    # Restart policy – useful for dev machines
+    restart: unless-stopped
+
+    # Limit resources (optional, especially on CI runners)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "2"
+    #       memory: 4G

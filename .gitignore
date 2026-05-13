@@ -1,0 +1,10 @@
+*lock*
+
+*.csv
+*.tar.gz
+*.ods
+
+.venv
+
+.ipynb_checkpoints
+.Trash-1000
