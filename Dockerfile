@@ -48,8 +48,6 @@ RUN pip install --no-cache-dir \
         plotly==5.24.1 \
         tqdm==4.66.5
 
-RUN pip install --no-cache-dir torch==2.3.0
-
 RUN pip install --no-cache-dir tensorflow==2.16.1
 
 RUN pip install --no-cache-dir eli5==0.16.0
